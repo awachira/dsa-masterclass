@@ -9,7 +9,7 @@ The growth rate for an algorithm is the rate at which the cost of the algorithm 
 [insert table of growth rates here]
 
 
-Big-Oh was used as early as 1894 by the number theorist Paul Bachmann. Consider the following snippet:
+Big-Oh was used as early as 1894 by the number theorist [Paul Bachmann](https://en.wikipedia.org/wiki/Paul_Gustav_Heinrich_Bachmann). Consider the following snippet:
 ```c++
 void snippet(){
   for(int i = 0; i < n; i++)
@@ -42,7 +42,7 @@ which could also have gone like this:
   compare 27 to 50: smaller, select lower half
   compare 27 to 27: found!
 ```
-in either case, it is clear that not all elements were used in the comparisons. The number of comparisons in such cases, where there are repeated halvings is `O(log n)`. The runtimes of such algorithms are therefore characteristically `O(log n)`.
+in either case, it is clear that not all elements were used in the comparisons. The number of comparisons in such cases, where there are repeated halvings is `log n`. The runtimes of such algorithms are therefore characteristically `O(log n)`.
 
 In programming practice, you sometimes stumble upon recursive functions. Say you had the one given below:
 ```c++
