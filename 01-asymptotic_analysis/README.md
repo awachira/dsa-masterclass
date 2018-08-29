@@ -29,36 +29,51 @@ where `a,b,c,d` and `e` are constants that depend on the machine running the cod
 
 Big-Oh allows us to reason at a much higher level, thus making it tractable to analyse more complicated forms.
 
-### Best, Average and Worst Case
-These are input sensitive concepts. We consider sequential search algorithm on an array of integers to define them:
+Suppose you had a sorted array of integers `[12, 21, 27, 31, 43, 47, 50, 51, 53, 57, 58, 60, 64]`. You are tasked with finding integer `27`.
+One way you could go about it is by extracting the middle integer in the array, comparing it with the integer you want to find, if found stop, but if bigger, select the upper half of the array, or if smaller, select the lower half of the array, repeat until found or the size of the selected array is `0`. This is illustrated in the example below:
+```
+  compare 27 to 50: smaller, select lower half
+  compare 27 to 31: smaller, select lower half
+  compare 27 to 21: bigger, select upper half
+  compare 27 to 27: found!
+```
+which could also have gone like this:
+```
+  compare 27 to 50: smaller, select lower half
+  compare 27 to 27: found!
+```
+in either case, it is clear that not all elements were used in the comparisons. The number of comparisons in such cases, where there are repeated halvings is `O(log n)`. The runtimes of such algorithms are therefore characteristically `O(log n)`.
 
-#### Best case
+In programming practice, you sometimes stumble upon recursive functions. Say you had the one given below:
+```c++
+ int func(int n){
+   if (n<=1) return 0;
+   return func(n-1) + func(n-1);
+ }
+```
+Take the example of `func(5)`. How many calls to `func` are there in total? If you took this example a littler further and counted for `func(3)`, `func(4)` and so on, you would find that the number of calls are `2^n - 1`. In practice, recursive functions such as the one surveyed will often have `O(2^n)` runtimes - drawing from the number of times the function was called.
 
-This is when the integer we want to find is the first one in the array. Is only useful if the integer has a high probability of occurrence.
+## Armotized Time
+A dynamically resizing `array`, such as a `vector` in C++, grows in size whenever the `n+1`th element is inserted. This entails creating a new `array` that is twice in size, copying the `n` elements from the old `array` to the new `array`, and then inserting the `n+1`th element. This is an operation that can be said to be `O(n)`. Over time, if the insertions continue, it becomes increasingly rare to create a new `array` and copy over the elements from the older `array`. The cost of creating and copying elements into the new `array` is said to be Armotized.
 
-#### Worst case 
+## Best, Average and Worst Case
+These are input sensitive concepts. We consider the sequential search algorithm on an array of integers to define them:
 
-Happens when the integer we want to find is the last one in the array. It tells us that at least the algorithm performs that well (important for real-time applications).
+ - Best case: This is when the integer we want to find is the first one in the array. Is only useful if the integer has a high probability of occurrence.
 
-#### Average case 
+ - Worst case: Happens when the integer we want to find is the last one in the array. It tells us that at least the algorithm performs that well (important for real-time applications).
 
-Happens when we empirically examine `n/2` values for many inputs of size `n` to find the integer. Important when we wish to aggregate the cost of running the program many times on many different inputs, i.e. it is a statement of the typical behaviour of the algorithm on inputs of size `n`.
+ - Average case: Happens when we empirically examine `n/2` values for many inputs of size `n` to find the integer. Important when we wish to aggregate the cost of running the program many times on many different inputs, i.e. it is a statement of the typical behaviour of the algorithm on inputs of size `n`.
 
-### Time Bounds
+## Time Bounds
 
 We survey several terms that describe the running-time equations for an algorithm with reference to some class of inputs of size `n`.
 
-#### Upper bound 
+ - Upper bound: Indicates the upper or highest growth rate achievable by an algorithm. This is synonymous with big-Oh.
 
-Indicates the upper or highest growth rate achievable by an algorithm. This is synonymous with big-Oh.
+ - Lower bound: Used to describe the least amount of resource that an algorithm needs for some class of input. This is big-Omega.
 
-#### Lower bound
-
-Used to describe the least amount of resource that an algorithm needs for some class of input. This is big-Omega.
-
-#### big-Theta
-
-This is when the upper and lower bounds are the same within a constant factor.
+ - big-Theta: This is when the upper and lower bounds are the same within a constant factor.
 
 ## Questions
 
